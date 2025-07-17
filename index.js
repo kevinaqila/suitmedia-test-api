@@ -6,7 +6,7 @@ const app = express();
 const port = 3001;
 
 const corsOptions = {
-    origin: "https://suitmedia-test-client-kluv.vercel.app", // URL Frontend Anda
+    origin: "https://suitmedia-test-client-kluv.vercel.app",
 };
 app.use(cors(corsOptions));
 app.get("/api/ideas", async(req, res) => {
