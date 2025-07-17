@@ -3,10 +3,11 @@ import axios from "axios";
 import cors from "cors";
 
 const app = express();
-const port = 3001;
 
-app.use(cors());
-
+const corsOptions = {
+    origin: "https://suitmedia-test-client-kluv.vercel.app",
+};
+app.use(cors(corsOptions));
 app.get("/api/ideas", async(req, res) => {
     try {
         const queryParams = req.query;
