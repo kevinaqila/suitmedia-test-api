@@ -2,9 +2,8 @@ import express from "express";
 import axios from "axios";
 import cors from "cors";
 
-const port = 3001;
-
 const app = express();
+const port = 3001;
 
 app.use(cors());
 
