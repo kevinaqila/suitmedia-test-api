@@ -1,28 +1,25 @@
 import express from "express";
-import axios from "axios";
 import cors from "cors";
 
 const app = express();
 
-const corsOptions = {
-    origin: "https://suitmedia-test-client-liuv.vercel.app",
-};
-app.use(cors(corsOptions));
+// Izinkan semua permintaan untuk sementara selama proses debug
+app.use(cors({ origin: '*' }));
 
-app.get("/api/ideas", async(req, res) => {
-    try {
-        const queryParams = req.query;
-        const apiResponse = await axios.get("https://suitmedia-backend.suitdev.com/api/ideas", {
-            params: {
-                ...queryParams,
-                "append[]": "small_image",
-            },
-        });
-        return res.status(200).json(apiResponse.data);
-    } catch (error) {
-        console.error("Backend Error:", error.message);
-        return res.status(500).json({ error: "Internal server proxy error" });
-    }
-});
+// Fungsi untuk mencatat dan merespons
+const logAndRespond = (pathName, req, res) => {
+    console.log(`--- Vercel menerima permintaan di path: "${pathName}" ---`);
+    console.log("URL asli yang diminta:", req.originalUrl);
+
+    res.status(200).json({
+        message: `Endpoint ${pathName} berhasil diakses!`,
+        originalUrl: req.originalUrl,
+    });
+};
+
+// Kita buat 3 rute untuk 'menjebak' panggilan dari frontend
+app.get('/', (req, res) => logAndRespond('/', req, res));
+app.get('/ideas', (req, res) => logAndRespond('/ideas', req, res));
+app.get('/api/ideas', (req, res) => logAndRespond('/api/ideas', req, res));
 
 export default app;
