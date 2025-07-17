@@ -7,10 +7,9 @@ const app = express();
 const corsOptions = {
     origin: "https://suitmedia-test-client-liuv.vercel.app",
 };
-
 app.use(cors(corsOptions));
 
-app.get("/", async(req, res) => {
+app.get("/api/ideas", async(req, res) => {
     try {
         const queryParams = req.query;
         const apiResponse = await axios.get("https://suitmedia-backend.suitdev.com/api/ideas", {
@@ -21,6 +20,7 @@ app.get("/", async(req, res) => {
         });
         return res.status(200).json(apiResponse.data);
     } catch (error) {
+        console.error("Backend Error:", error.message);
         return res.status(500).json({ error: "Internal server proxy error" });
     }
 });
