@@ -3,9 +3,10 @@ import axios from "axios";
 import cors from "cors";
 
 const app = express();
+const port = 3001;
 
 const corsOptions = {
-    origin: "https://suitmedia-test-client-kluv.vercel.app",
+    origin: "https://suitmedia-test-client-kluv.vercel.app", // URL Frontend Anda
 };
 app.use(cors(corsOptions));
 app.get("/api/ideas", async(req, res) => {
@@ -22,4 +23,6 @@ app.get("/api/ideas", async(req, res) => {
         res.status(500).json({ error: "Internal server proxy error" });
     }
 });
-export default app;
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
