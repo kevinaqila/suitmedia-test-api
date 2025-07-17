@@ -4,12 +4,13 @@ import cors from "cors";
 
 const app = express();
 
-// Konfigurasi CORS
 const corsOptions = {
     origin: "https://suitmedia-test-client-liuv.vercel.app",
 };
 
-app.get("/ideas", cors(corsOptions), async(req, res) => {
+app.use(cors(corsOptions));
+
+app.get("/", async(req, res) => {
     try {
         const queryParams = req.query;
         const apiResponse = await axios.get("https://suitmedia-backend.suitdev.com/api/ideas", {
