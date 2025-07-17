@@ -4,13 +4,12 @@ import cors from "cors";
 
 const app = express();
 
+// Konfigurasi CORS
 const corsOptions = {
     origin: "https://suitmedia-test-client-liuv.vercel.app",
 };
-app.use(cors(corsOptions));
 
-
-app.get("/ideas", async(req, res) => {
+app.get("/ideas", cors(corsOptions), async(req, res) => {
     try {
         const queryParams = req.query;
         const apiResponse = await axios.get("https://suitmedia-backend.suitdev.com/api/ideas", {
@@ -19,9 +18,9 @@ app.get("/ideas", async(req, res) => {
                 "append[]": "small_image",
             },
         });
-        res.json(apiResponse.data);
+        return res.status(200).json(apiResponse.data);
     } catch (error) {
-        res.status(500).json({ error: "Internal server proxy error" });
+        return res.status(500).json({ error: "Internal server proxy error" });
     }
 });
 
