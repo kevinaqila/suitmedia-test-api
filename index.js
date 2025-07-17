@@ -6,6 +6,10 @@ const app = express();
 
 app.use(cors());
 
+app.get("/", (req, res) => {
+    res.status(200).json({ message: "API is active. Please use the /api/ideas endpoint." });
+});
+
 app.get("/api/ideas", async(req, res) => {
     try {
         const queryParams = req.query;
