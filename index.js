@@ -6,7 +6,7 @@ const app = express();
 
 app.use(cors());
 
-app.get("/api/ideas", async(req, res) => {
+app.get("/ideas", async(req, res) => {
     try {
         const queryParams = req.query;
         const apiResponse = await axios.get("https://suitmedia-backend.suitdev.com/api/ideas", {
