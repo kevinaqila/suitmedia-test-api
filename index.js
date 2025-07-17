@@ -21,7 +21,4 @@ app.get("/api/ideas", async(req, res) => {
         res.status(500).json({ error: "Internal server proxy error" });
     }
 });
-
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+export default app;
